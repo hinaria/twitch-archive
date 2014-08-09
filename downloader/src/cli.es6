@@ -10,10 +10,16 @@ export default function main(params) {
     params.users = make_array(params.users);
     params.videos = make_array(params.videos).map(x => `a${x}`);
 
+    if (params.interactive) process.title = "twitch-archiver";
     throttled_request.limit(params.concurrent_downloads_limit);
 
     when_all([
         api.download_broadcasts(params.videos, params.destination),
         api.download_users(params.users, params.destination)
-    ]).then(_ => console.log("everything finished!"));
+    ]).then(function() {
+        if (params.interactive) {
+            console.log("everything finished! press any key to continue...");
+            process.stdin.on("data", _ => process.exit());
+        }
+    });
 };
