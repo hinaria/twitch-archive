@@ -1,0 +1,2 @@
+require("mirai");
+require("./program");
