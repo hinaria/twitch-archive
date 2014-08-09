@@ -12,10 +12,10 @@ let pad_string = function(string) {
     return pad.substring(0, pad.length - str.length) + str;
 };
 
-let file_name_for_broadcast = function(broadcast) {
+let directory_name_for_broadcast = function(broadcast) {
     // 2014-00-00T00:00:00Z => 2014-01-01 00-00-00
     let date = broadcast.recorded_at.replace("T", " ").replace("Z", "").replace(/:/g, "-");
-    let name = broadcast.title.replace(/["*/:<>?.|□\\]/g, "_");
+    let name = broadcast.title.replace(/["*/:<>?.|□\\]/g, "_").replace(/\w+$/, "");
     return `${date} - ${name}`;
 };
 
@@ -50,7 +50,7 @@ var api = {
             return when_all(
                 videos.map(x => api.download_broadcast(
                     x._id,
-                    path.join(destination, channel_name, file_name_for_broadcast(x)),
+                    path.join(destination, channel_name, directory_name_for_broadcast(x)),
                     `${x.channel.name} - ${x.title}`)));
         });
     },
