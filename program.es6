@@ -6,12 +6,14 @@ let args = minimist(process.argv.slice(2), {
         "u": "users",
         "v": "videos",
         "b": "videos",
-        "d": "destination"
+        "d": "destination",
+        "l": "concurrent_downloads_limit"
     },
     "default": {
         "users": [],
         "videos": [],
-        "destination": ""
+        "destination": "",
+        "concurrent_downloads_limit": 5
     }
 });
 

@@ -1,7 +1,6 @@
 import fs from "fs";
 import request from "request";
 import throttled_request from "./throttled-request";
-import { attach_request } from "./progress";
 import { create_directories_for_file } from "./fs";
 import { Promise } from "./rsvp";
 
@@ -27,7 +26,7 @@ export default {
             let file = fs.createWriteStream(destination);
 
             req.pipe(file).on("end", x => file.close());
-            attach_request(req);
+            return req;
         });
     }
 }
