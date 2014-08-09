@@ -8,7 +8,7 @@ export default function main(params) {
         throw "no destination was specified";
     
     params.users = make_array(params.users);
-    params.videos = make_array(params.videos);
+    params.videos = make_array(params.videos).map(x => `a${x}`);
 
     throttled_request.limit(params.concurrent_downloads_limit);
 
