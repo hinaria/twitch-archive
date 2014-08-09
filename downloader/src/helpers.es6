@@ -19,7 +19,7 @@ export var get_videos = function(channel_name) {
 
         fetch(`https://api.twitch.tv/kraken/channels/${channel_name}/videos?limit=100&offset=0&broadcasts=true&on_site=1`);
     });
-}
+};
 
 export var make_array = function(obj) {
     if (Array.isArray(obj))

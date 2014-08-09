@@ -22,4 +22,4 @@ export default function main(params) {
             process.stdin.on("data", _ => process.exit());
         }
     });
-};
+}

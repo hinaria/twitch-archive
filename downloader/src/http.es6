@@ -26,10 +26,10 @@ export default {
             let file = fs.createWriteStream(destination);
 
             req.pipe(file)
-                .on("error", x => file.close())
-                .on("end", x => file.close());
+                .on("error", _ => file.close())
+                .on("end", _ => file.close());
 
             callback(req);
         });
     }
-}
+};
