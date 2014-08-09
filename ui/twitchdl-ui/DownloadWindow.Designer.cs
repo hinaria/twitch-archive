@@ -1,6 +1,6 @@
 ﻿namespace TwitchUi
 {
-    partial class TwitchDl
+    partial class DownloadWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -174,7 +174,7 @@
             this.label2.TabIndex = 52;
             this.label2.Text = "broadcast ids, one on each line (eg, 555803111)";
             // 
-            // TwitchDl
+            // DownloadWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -197,7 +197,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "TwitchDl";
+            this.Name = "DownloadWindow";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Twitch Downloader";

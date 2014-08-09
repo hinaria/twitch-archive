@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TwitchUi
@@ -16,7 +12,7 @@ namespace TwitchUi
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TwitchDl());
+            Application.Run(new DownloadWindow());
         }
 
         static void SetupEnvironment()

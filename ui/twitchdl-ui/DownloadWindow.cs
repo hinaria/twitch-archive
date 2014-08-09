@@ -1,27 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TwitchUi
 {
-    public partial class TwitchDl : Form
+    public partial class DownloadWindow : Form
     {
-        static string NodePath = Path.GetFullPath(Path.Combine(Application.StartupPath, "data", "node.exe"));
-        static string ScriptPath = Path.GetFullPath(Path.Combine(Application.StartupPath, "data", "twitch-archive", "src", "bootstrap.js"));
+        static string NodePath = Path.GetFullPath(Path.Combine(Application.StartupPath, "support", "node.exe"));
+        static string ScriptPath = Path.GetFullPath(Path.Combine(Application.StartupPath, "support", "twitch-archive", "bootstrap.js"));
 
         static Regex BadNumberRegex = new Regex(@"[^\d]", RegexOptions.ECMAScript);
 
-        public TwitchDl()
+        public DownloadWindow()
         {
             InitializeComponent();
 
@@ -67,11 +60,11 @@ namespace TwitchUi
             try
             {
                 Process.Start(NodePath, string.Format(
-                "\"{0}\" {1} {2} -d \"{3}\"",
-                ScriptPath,
-                string.Join(" ", broadcastIds.Select(x => string.Format("-b \"{0}\"", x))),
-                string.Join(" ", channelNames.Select(x => string.Format("-u \"{0}\"", x))),
-                Path.GetFullPath(DestinationTextBox.Text)));
+                    "\"{0}\" {1} {2} -i -d \"{3}\"",
+                    ScriptPath,
+                    string.Join(" ", broadcastIds.Select(x => string.Format("-b \"{0}\"", x))),
+                    string.Join(" ", channelNames.Select(x => string.Format("-u \"{0}\"", x))),
+                    Path.GetFullPath(DestinationTextBox.Text)));
             }
             catch (Exception)
             {
