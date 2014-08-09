@@ -15,7 +15,7 @@ let pad_string = function(string) {
 let directory_name_for_broadcast = function(broadcast) {
     // 2014-00-00T00:00:00Z => 2014-01-01 00-00-00
     let date = broadcast.recorded_at.replace("T", " ").replace("Z", "").replace(/:/g, "-");
-    let name = broadcast.title.replace(/["*/:<>?.|□\\]/g, "_").replace(/\w+$/, "");
+    let name = broadcast.title.replace(/["*/:<>?.|□\\]/g, "_").replace(/\s+$/, "");
     return `${date} - ${name}`;
 };
 
@@ -65,6 +65,9 @@ var api = {
 
     download_broadcast(broadcast_id, destination, friendly_name = null) {
         return http.get(`https://api.twitch.tv/api/videos/${broadcast_id}?on_site=1`).then(function(response) {
+            if (response.error)
+                return;
+
             let chunks = response.chunks.live;
 
             let resources = chunks.map(function(chunk, index) {
@@ -79,12 +82,13 @@ var api = {
 
             return when_all(resources.map(function(resource) {
                 let counters = api.counters;
-                let promise = http.download(resource.url, resource.destination);
+                let started = false;
 
                 counters.total++;
-
-                return promise.then(function(request) {
-                    counters.started++;
+                
+                return http.download(resource.url, resource.destination, function(request) {
+                    if (!started) counters.started++;
+                    started = true;
                     
                     let message = `downloading ${counters.started} of ${counters.total}: ${resource.friendly_name}`;
                     console.log(message.substring(0, 80));

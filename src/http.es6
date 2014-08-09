@@ -20,13 +20,16 @@ export default {
         return this.request(url).then(JSON.parse);
     },
 
-    download(url, destination) {      
-        return throttled_request.queue(url).then(function(req) {
+    download(url, destination, callback) {
+        return throttled_request.queue(url, function(req) {
             create_directories_for_file(destination);
             let file = fs.createWriteStream(destination);
 
-            req.pipe(file).on("end", x => file.close());
-            return req;
+            req.pipe(file)
+                .on("error", x => file.close())
+                .on("end", x => file.close());
+
+            callback(req);
         });
     }
 }

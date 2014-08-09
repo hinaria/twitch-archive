@@ -13,7 +13,7 @@ export default function main(params) {
     throttled_request.limit(params.concurrent_downloads_limit);
 
     when_all([
-        api.download_users(params.users, params.destination),
-        api.download_broadcasts(params.videos, params.destination)
+        api.download_broadcasts(params.videos, params.destination),
+        api.download_users(params.users, params.destination)
     ]).then(_ => console.log("everything finished!"));
 };
